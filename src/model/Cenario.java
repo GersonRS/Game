@@ -33,24 +33,29 @@ public class Cenario extends Elemento {
 	}
 
 	public void montarMatriz() {
-		for (String data : datas) {
-			if (data != null && data.length() > 0) {
-				int camada[][] = new int[height][width];
-				StringTokenizer linhas = new StringTokenizer(data, "\n");
-				int i = 0;
-				while (linhas.hasMoreTokens()) {
-					StringTokenizer colunas = new StringTokenizer(
-							linhas.nextToken(), ",");
-					int j = 0;
-					while (colunas.hasMoreTokens()) {
-						camada[i][j] = Integer.parseInt(colunas.nextToken());
-						j++;
+		try {
+			for (String data : datas) {
+				if (data != null && data.length() > 0) {
+					int camada[][] = new int[height][width];
+					StringTokenizer linhas = new StringTokenizer(data, "\n");
+					int i = 0;
+					while (linhas.hasMoreTokens()) {
+						StringTokenizer colunas = new StringTokenizer(
+								linhas.nextToken(), ",");
+						int j = 0;
+						while (colunas.hasMoreTokens()) {
+							camada[i][j] = Integer
+									.parseInt(colunas.nextToken());
+							j++;
+						}
+						i++;
 					}
-					i++;
+					camadas.add(camada);
+					// print(camada);
 				}
-				camadas.add(camada);
-//				print(camada);
 			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -93,21 +98,6 @@ public class Cenario extends Elemento {
 					.getAttribute("tilewidth"));
 			this.tileHeight = Integer.parseInt(docElement
 					.getAttribute("tileheight"));
-			// NodeList setNodes = docElement.getElementsByTagName("tileset");
-			// ArrayList<TileSet> tiles = new ArrayList<TileSet>();
-			// for (int i = 0; i < setNodes.getLength(); i++) {
-			// Element current = (Element) setNodes.item(i);
-			// TileSet tile = new TileSet();
-			// tile.setFirstgid(Integer.parseInt(current
-			// .getAttribute("firstgid")));
-			// tile.setTilewidth(Integer.parseInt(current
-			// .getAttribute("tilewidth")));
-			// tile.setTileheight(Integer.parseInt(current
-			// .getAttribute("tileheight")));
-			// tile.setName(current.getAttribute("name"));
-			// tiles.add(tile);
-			// }
-			// cenario.setTileSets(tiles);
 			NodeList layerNodes = docElement.getElementsByTagName("layer");
 			for (int i = 0; i < layerNodes.getLength(); i++) {
 				Element current = (Element) layerNodes.item(i);
@@ -120,7 +110,13 @@ public class Cenario extends Elemento {
 				this.compression = dataNode.getAttribute("compression");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(width*tileWidth<800 && height*tileHeight<576){
+				System.out.println("erro");
+			}
 		}
+
 	}
 
 	public int getTilewidth() {

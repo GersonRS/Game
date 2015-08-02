@@ -1,14 +1,20 @@
 package control;
 
-import model.Cenario;
-import model.MainLoop;
-import view.Render;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-public class ControleCentral implements LoopSteps{
+import model.Cenario;
+import model.Logica;
+import model.MainLoop;
+import view.Janela;
+import view.Renderizador;
+
+public class ControleCentral extends KeyAdapter implements LoopSteps{
 	
 	private MainLoop main;
-	private Render render;
+	private Renderizador render;
 	private Cenario cenario;
+	private Logica logica;
 	
 	public ControleCentral() {
 		main = new MainLoop(this,60);
@@ -20,22 +26,25 @@ public class ControleCentral implements LoopSteps{
 		cenario = new Cenario();
 		cenario.carregaCenario("se.tmx");
 		cenario.montarMatriz();
-		render = new Render(cenario);
+		render = new Renderizador(cenario);
+		render.addKeyListener(this);
+		logica = new Logica();
+		new Janela(render);
 	}
 
 	@Override
 	public void processLogics() {
-		
+		logica.movePersonagem();
 	}
 
 	@Override
 	public void renderGraphics() {
-		render.repaint();
+		render.renderiza();
 	}
 
 	@Override
 	public void paintScreen() {
-		
+		render.pinta();
 	}
 
 	@Override
@@ -44,5 +53,9 @@ public class ControleCentral implements LoopSteps{
 	}
 	public static void main(String[] args) {
 		new ControleCentral();
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
 	}
 }
