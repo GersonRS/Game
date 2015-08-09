@@ -17,7 +17,7 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-public class Cenario extends Elemento {
+public class Cenario extends Entidade {
 
 	private int tileWidth;
 	private int tileHeight;

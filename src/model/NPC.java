@@ -1,5 +1,5 @@
 package model;
 
-public abstract class NPC extends Entidade {
+public abstract class NPC extends Personagem {
 
 }

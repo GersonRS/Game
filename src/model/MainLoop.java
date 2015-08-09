@@ -15,7 +15,9 @@ public class MainLoop implements Runnable {
 
 	private long afterTime;
 	private long beforeTime = System.currentTimeMillis();
-
+	
+	public static long temp = 1;
+	
 	private long overSleepTime = 0;
 	private long excessTime = 0;
 
@@ -74,7 +76,9 @@ public class MainLoop implements Runnable {
 		running = true;
 		try {
 			game.setup();
+			long tempAnterior;
 			while (running) {
+				tempAnterior = System.currentTimeMillis();
 				if (!pause) {
 					beforeTime = System.nanoTime();
 					skipFramesInExcessTime();
@@ -82,6 +86,7 @@ public class MainLoop implements Runnable {
 					game.processLogics();
 					game.renderGraphics();
 					game.paintScreen();
+					temp = (System.currentTimeMillis() - tempAnterior);
 					afterTime = System.nanoTime();
 
 					long sleepTime = calculateSleepTime();
