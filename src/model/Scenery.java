@@ -17,7 +17,7 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-public class Cenario extends Entidade {
+public class Scenery extends GameObjects {
 
 	private int width, height;
 	private int tileWidth;
@@ -28,7 +28,8 @@ public class Cenario extends Entidade {
 	private ArrayList<int[][]> camadas;
 	private ArrayList<String> datas;
 
-	public Cenario() {
+	public Scenery() {
+		super(0, 0, 0, 0);
 		this.datas = new ArrayList<String>();
 		this.camadas = new ArrayList<int[][]>();
 	}
@@ -116,6 +117,8 @@ public class Cenario extends Entidade {
 			if (width * tileWidth < 800 && height * tileHeight < 576) {
 				System.out.println("erro");
 			}
+			pos.width = width * tileWidth;
+			pos.height = height * tileHeight;
 		}
 
 	}

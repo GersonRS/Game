@@ -2,9 +2,9 @@ package view;
 
 public interface Render {
 
-	public void pinta();
+	public void paint();
 
-	public void montaCamadas();
+	public void loadLayers();
 
-	public void renderiza();
+	public void render();
 }

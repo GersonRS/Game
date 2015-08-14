@@ -2,23 +2,48 @@ package model;
 
 import java.awt.geom.Point2D;
 
-public abstract class Character extends Entidade {
+public abstract class Character extends Entity {
 
+	protected int strength;
+	protected int intelligence;
+	protected int agility;
+	protected int dexterity;
+	protected int hp, hpMax;
+	protected int mp, mpMax;
+	protected String name;
+	protected int level;
+	protected int exp, expMax;
+	protected int state;
 	protected Point2D.Double speed;
 	protected Point2D.Double acceleration;
 	protected Point2D.Double maxSpeed;
 	protected double friction;
+	protected String image;
 	protected int animates;
 	protected int direction;
 
+	static enum STATE {
+		STANDING, WALKING, ATTACK
+	}
+
+	static enum ORIENTATION {
+		UP, RIGHT, DOWN, LEFT
+	};
+	
 	public Character() {
 	}
 
-	public Character(int x, int y, int width, int height, String imagem) {
-		super(x, y, width, height, imagem);
+	public Character(int x, int y, int width, int height, String image,String name) {
+		super(x, y, width, height);
+		this.image = image;
+		this.name = name;
+		this.level = 1;
+		this.expMax = 100;
+		this.hpMax = 100;
+		this.mpMax = 100;
 		speed = new Point2D.Double();
 		acceleration = new Point2D.Double();
-		maxSpeed = new Point2D.Double(3, 3);
+		maxSpeed = new Point2D.Double(2, 2);
 		friction = 0.3;
 	}
 
@@ -65,11 +90,20 @@ public abstract class Character extends Entidade {
 		acceleration.y = 0;
 	}
 
+	public int getAnimates() {
+		return animates;
+	}
+
 	public int getDirection() {
 		return direction;
 	}
 
-	public int getAnimates() {
-		return animates;
+	public String getImage() {
+		return image;
 	}
+
+	public Point2D.Double getSpeed() {
+		return speed;
+	}
+
 }

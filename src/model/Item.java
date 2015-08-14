@@ -1,5 +1,5 @@
 package model;
 
-public class Item extends Entidade{
+public class Item extends Entity{
 
 }

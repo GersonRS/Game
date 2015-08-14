@@ -5,39 +5,17 @@ import java.io.IOException;
 
 public final class Player extends Character {
 
-	private int strength;
-	private int intelligence;
-	private int agility;
-	private int dexterity;
-	private int hp, hpMax;
-	private int mp, mpMax;
-	private String name;
-	private int level;
-	private int exp, expMax;
+	private int gold;
 	private int state;
 	private int stepInterval;
 	private int lastStepTick;
-
-	static enum STATE {
-		STANDING, WALKING, ATTACK
-	}
-
-	static enum ORIENTATION {
-		UP, RIGHT, DOWN, LEFT
-	};
-
 
 	public Player() {
 	}
 
 	public Player(int x, int y, int width, int height, String imagem,
 			String name) {
-		super(x, y, width, height, imagem);
-		this.name = name;
-		this.level = 1;
-		this.expMax = 100;
-		this.hpMax = 100;
-		this.mpMax = 100;
+		super(x, y, width, height, imagem, name);
 		this.stepInterval = 20;
 		this.state = STATE.STANDING.ordinal();
 	}
@@ -85,4 +63,17 @@ public final class Player extends Character {
 	public int getState() {
 		return state;
 	}
+
+	public int getGold() {
+		return gold;
+	}
+
+	public void addGold(int gold) {
+		this.gold += gold;
+	}
+
+	public void subtractGold(int gold) {
+		this.gold -= gold;
+	}
+
 }
