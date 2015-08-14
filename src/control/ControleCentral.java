@@ -1,26 +1,25 @@
 package control;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import model.Cenario;
+import model.InputManager;
+import model.Player;
 import model.Logica;
 import model.MainLoop;
 import model.Monstro;
 import model.NPC;
-import model.Jogador;
 import view.Janela;
 import view.MonstroView;
 import view.PersonagemView;
 import view.Renderizador;
 
-public class ControleCentral extends KeyAdapter implements LoopSteps{
+public class ControleCentral implements LoopSteps{
 	
 	private MainLoop main;
 	private Renderizador render;
 	private Logica logica;
-	private Jogador p;
+	private Player p;
 	private PersonagemView pView;
 	private ArrayList<Monstro> monstros;
 	private ArrayList<MonstroView> monstrosView;
@@ -28,13 +27,13 @@ public class ControleCentral extends KeyAdapter implements LoopSteps{
 	private Cenario cenario;
 	
 	public ControleCentral() {
-		main = new MainLoop(this,10);
+		main = new MainLoop(this,60);
 		new Thread(main).start();
 	}
 
 	@Override
 	public void setup() {
-		p = new Jogador(100, 100, 23, 55, "personagem.png", 20, "gerson");
+		p = new Player(100, 300, 23, 55, "personagem.png", "gerson");
 		pView = new PersonagemView(p);
 		cenario = new Cenario();
 		monstros = new ArrayList<Monstro>();
@@ -43,14 +42,14 @@ public class ControleCentral extends KeyAdapter implements LoopSteps{
 		cenario.carregaCenario("se.tmx");
 		cenario.montarMatriz();
 		render = new Renderizador(pView, monstrosView, npcs, cenario);
-		render.addKeyListener(this);
+		render.addKeyListener(InputManager.getInstance());
 		logica = new Logica(p,monstros,npcs,cenario);
 		new Janela(render);
 	}
 
 	@Override
-	public void processLogics() {
-		logica.trataJogo();
+	public void processLogics(int tick) {
+		logica.trataJogo(tick);
 	}
 
 	@Override
@@ -69,28 +68,5 @@ public class ControleCentral extends KeyAdapter implements LoopSteps{
 	}
 	public static void main(String[] args) {
 		new ControleCentral();
-	}
-	
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode()==KeyEvent.VK_UP)
-			p.setCima(true);
-		if(e.getKeyCode()==KeyEvent.VK_DOWN)
-			p.setBaixo(true);
-		if(e.getKeyCode()==KeyEvent.VK_LEFT)
-			p.setEsquerda(true);
-		if(e.getKeyCode()==KeyEvent.VK_RIGHT)
-			p.setDireita(true);
-	}
-	@Override
-	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode()==KeyEvent.VK_UP)
-			p.setCima(false);
-		if(e.getKeyCode()==KeyEvent.VK_DOWN)
-			p.setBaixo(false);
-		if(e.getKeyCode()==KeyEvent.VK_LEFT)
-			p.setEsquerda(false);
-		if(e.getKeyCode()==KeyEvent.VK_RIGHT)
-			p.setDireita(false);
 	}
 }

@@ -1,5 +1,5 @@
 package model;
 
-public abstract class Monstro extends Personagem {
+public abstract class Monstro extends Character {
 
 }

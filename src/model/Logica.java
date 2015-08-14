@@ -4,15 +4,12 @@ import java.util.ArrayList;
 
 public class Logica {
 
-	private Jogador p;
+	private Player p;
 //	private ArrayList<Monstro> monstros;
 //	private ArrayList<NPC> npcs;
 	private Cenario cenario;
-	private enum Direcao {
-		CIMA, DIREITA, BAIXO, ESQUERDA
-	}
 
-	public Logica(Jogador p, ArrayList<Monstro> monstros,
+	public Logica(Player p, ArrayList<Monstro> monstros,
 			ArrayList<NPC> npcs, Cenario cenario) {
 		super();
 		this.p = p;
@@ -21,36 +18,24 @@ public class Logica {
 		this.cenario = cenario;
 	}
 
-	public void trataJogo() {
-		moverJogador();
+	public void trataJogo(int tick) {
+		moverJogador(tick);
 	}
 
-	private void moverJogador() {
-		int posXAnterior = p.getX();
-		int posYAnterior = p.getY();
-
-		if (p.isCima()) {
-			p.mover(Direcao.CIMA.ordinal());
-		}
-		if (p.isBaixo()) {
-			p.mover(Direcao.BAIXO.ordinal());
-		}
-		if (p.isDireita()) {
-			p.mover(Direcao.DIREITA.ordinal());
-		}
-		if (p.isEsquerda()) {
-			p.mover(Direcao.ESQUERDA.ordinal());
-		}
+	private void moverJogador(int tick) {
+		double posXAnterior = p.getPos().x;
+		double posYAnterior = p.getPos().y;
+		p.update(tick);
 		
 		tratarSairTela(p, posXAnterior, posYAnterior);
 	}
-	private void tratarSairTela(Entidade e,int posX, int posY) {
+	private void tratarSairTela(Entidade e,double posXAnterior, double posYAnterior) {
 
-		if ((e.getX() < 0) || ((e.getX() + e.getWidth()) > cenario.getWidth()*cenario.getTilewidth())) {
-			e.setX(posX);
+		if ((e.getPos().x < 0) || ((e.getPos().x + e.getPos().width) > cenario.getWidth()*cenario.getTilewidth())) {
+			e.getPos().x = posXAnterior;
 		}
-		if ((e.getY() < 0) || ((e.getY() + e.getHeight()) > cenario.getHeight()*cenario.getTileheight())) {
-			e.setY(posY);
+		if ((e.getPos().y < 0) || ((e.getPos().y + e.getPos().height) > cenario.getHeight()*cenario.getTileheight())) {
+			e.getPos().y = posYAnterior;
 		}
 	}
 }

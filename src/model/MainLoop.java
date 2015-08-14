@@ -8,6 +8,10 @@ public class MainLoop implements Runnable {
 	public static final int DEFAULT_NO_DELAYS_PER_YIELD = 16;
 	public static final int DEFAULT_MAX_FRAME_SKIPS = 5;
 
+	private int tick;
+	
+	public static long tempo;
+	
 	private LoopSteps game;
 	private long desiredUpdateTime;
 	private boolean running;
@@ -15,8 +19,6 @@ public class MainLoop implements Runnable {
 
 	private long afterTime;
 	private long beforeTime = System.currentTimeMillis();
-	
-	public static long temp = 1;
 	
 	private long overSleepTime = 0;
 	private long excessTime = 0;
@@ -74,19 +76,22 @@ public class MainLoop implements Runnable {
 
 	public void run() {
 		running = true;
+		long tempAnterior = System.nanoTime();
 		try {
 			game.setup();
-			long tempAnterior;
 			while (running) {
-				tempAnterior = System.currentTimeMillis();
 				if (!pause) {
+					tick++;
+					tempo = System.nanoTime() - tempAnterior;
+					tempAnterior = System.nanoTime();
 					beforeTime = System.nanoTime();
 					skipFramesInExcessTime();
-
-					game.processLogics();
+					
+					InputManager.getInstance().update();
+					
+					game.processLogics(tick);
 					game.renderGraphics();
 					game.paintScreen();
-					temp = (System.currentTimeMillis() - tempAnterior);
 					afterTime = System.nanoTime();
 
 					long sleepTime = calculateSleepTime();
@@ -113,7 +118,7 @@ public class MainLoop implements Runnable {
 		int skips = 0;
 		while ((excessTime > desiredUpdateTime) && (skips < maxFrameSkips)) {
 			excessTime -= desiredUpdateTime;
-			game.processLogics();
+			game.processLogics(tick);
 			skips++;
 		}
 	}

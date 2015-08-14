@@ -110,9 +110,9 @@ public class Renderizador extends JPanel implements Render {
 		renderizador.drawImage(ouro, 100, 100, null);
 		renderizador.drawImage(p.getImagem(), p.getX(), p.getY(),
 				p.getX() + p.getWidth(), p.getY() + p.getHeight(),
-				(int) (p.getAnima() % 6) * p.getWidth(),
+				(int) (p.getAnimates() % 6) * p.getWidth(),
 				p.getDirecao() * p.getHeight(),
-				(int) (p.getAnima() % 6 * p.getWidth()) + p.getWidth(),
+				(int) (p.getAnimates() % 6 * p.getWidth()) + p.getWidth(),
 				(p.getDirecao() * p.getHeight()) + p.getHeight(), null);
 		for (MonstroView monstro : monstros) {
 			renderizador.drawImage(

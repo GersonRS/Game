@@ -19,6 +19,7 @@ import org.xml.sax.SAXException;
 
 public class Cenario extends Entidade {
 
+	private int width, height;
 	private int tileWidth;
 	private int tileHeight;
 	private String orientation;
@@ -112,7 +113,7 @@ public class Cenario extends Entidade {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if(width*tileWidth<800 && height*tileHeight<576){
+			if (width * tileWidth < 800 && height * tileHeight < 576) {
 				System.out.println("erro");
 			}
 		}
@@ -162,4 +163,21 @@ public class Cenario extends Entidade {
 	public ArrayList<int[][]> getCamadas() {
 		return camadas;
 	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
 }
