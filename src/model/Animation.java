@@ -1,6 +1,6 @@
 package model;
 
-public class Animation extends GameObjects {
+public class Animation extends Entity {
 
 	private int currentImageIndex;
 	private int indexInc;

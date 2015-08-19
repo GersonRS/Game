@@ -17,7 +17,7 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-public class Scenery extends GameObjects {
+public class Scenery extends Entity {
 
 	private int width, height;
 	private int tileWidth;
@@ -75,7 +75,7 @@ public class Scenery extends GameObjects {
 
 	public void carregaCenario(String resource) {
 		InputStream is = getClass().getClassLoader().getResourceAsStream(
-				"cenarios/" + resource);
+				"scenerys/" + resource);
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory
 					.newInstance();

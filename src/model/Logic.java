@@ -1,10 +1,11 @@
 package model;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Logic {
 
-	private Player p;
+	private Player player;
 	private ArrayList<Monster> monsters;
 //	private ArrayList<NPC> npcs;
 	private ArrayList<Animation> animations;
@@ -13,7 +14,7 @@ public class Logic {
 	public Logic(Player p, ArrayList<Monster> monsters,
 			ArrayList<NPC> npcs, Scenery scene, ArrayList<Animation> animations) {
 		super();
-		this.p = p;
+		this.player = p;
 		this.monsters = monsters;
 //		this.npcs = npcs;
 		this.animations = animations;
@@ -24,6 +25,11 @@ public class Logic {
 		moverJogador(currentTick);
 		moverMonstros(currentTick);
 		animations(currentTick);
+		if(InputManager.getInstance().isJustPressed(KeyEvent.VK_SPACE)){
+			Animation animated = new Animation(0, 0, 64, 128, 10, false, 6,
+					"coins100");
+			animations.add(animated);
+		}
 	}
 
 	private void animations(int currentTick) {
@@ -49,17 +55,17 @@ public class Logic {
 
 
 	private void moverJogador(int tick) {
-		double posXAnterior = p.getPos().x;
-		double posYAnterior = p.getPos().y;
-		p.update(tick);
+		double posXAnterior = player.getPos().x;
+		double posYAnterior = player.getPos().y;
+		player.update(tick);
 		
-		tratarSairTela(p, posXAnterior, posYAnterior);
+		tratarSairTela(player, posXAnterior, posYAnterior);
 		
-		if(p.getPos().x>=400 && p.getPos().x<=scene.getPos().width-400)
-			scene.getPos().x-=p.getSpeed().x;
+		if(player.getPos().x>=400 && player.getPos().x<=scene.getPos().width-400)
+			scene.getPos().x-=player.getSpeed().x;
 		
-		if(p.getPos().y>=300 && p.getPos().y<=scene.getPos().height-300)
-			scene.getPos().y-=p.getSpeed().y;
+		if(player.getPos().y>=300 && player.getPos().y<=scene.getPos().height-300)
+			scene.getPos().y-=player.getSpeed().y;
 		
 	}
 	private void tratarSairTela(Entity e,double posXAnterior, double posYAnterior) {

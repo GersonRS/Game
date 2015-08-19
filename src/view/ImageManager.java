@@ -28,7 +28,7 @@ public class ImageManager {
 	}
 
 	public void loadImage(String fileName){
-		URL url = getClass().getClassLoader().getResource("imagens/" + fileName + ".png");
+		URL url = getClass().getClassLoader().getResource("images/" + fileName + ".png");
 		if (url == null) {
 			throw new RuntimeException("A imagem /" + fileName
 					+ " não foi encontrada.");

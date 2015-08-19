@@ -27,13 +27,13 @@ public class Renderer implements Render {
 	private Graphics2D draws;
 	private int width = Config.WIDTH;
 	private int height = Config.HEIGHT;
-	private Player p;
+	private Player player;
 	private ArrayList<Monster> monsters;
 	private ArrayList<Animation> animations;
 
-	public Renderer(Player p, ArrayList<Monster> monsters,
-			ArrayList<NPC> npcs, Scenery scene, ArrayList<Animation> animation) {
-		this.p = p;
+	public Renderer(Player p, ArrayList<Monster> monsters, ArrayList<NPC> npcs,
+			Scenery scene, ArrayList<Animation> animation) {
+		this.player = p;
 		this.monsters = monsters;
 		this.scene = scene;
 		this.animations = animation;
@@ -85,20 +85,22 @@ public class Renderer implements Render {
 					int tile = (camada[i][j] != 0) ? (camada[i][j] - 1) : 0;
 					int tileRow = (tile / 8) | 0;
 					int tileCol = (tile % 8) | 0;
-					layers[a].getGraphics().drawImage(
-							ImageManager.getInstance().getImage("tileset"),
-							(j * scene.getTilewidth()),
-							(i * scene.getTileheight()),
-							(j * scene.getTilewidth())
-									+ scene.getTilewidth(),
-							(i * scene.getTileheight())
-									+ scene.getTileheight(),
-							(tileCol * scene.getTilewidth()),
-							(tileRow * scene.getTileheight()),
-							(tileCol * scene.getTilewidth())
-									+ scene.getTilewidth(),
-							(tileRow * scene.getTileheight())
-									+ scene.getTileheight(), null);
+					layers[a].getGraphics()
+							.drawImage(
+									ImageManager.getInstance().getImage(
+											"tileset"),
+									(j * scene.getTilewidth()),
+									(i * scene.getTileheight()),
+									(j * scene.getTilewidth())
+											+ scene.getTilewidth(),
+									(i * scene.getTileheight())
+											+ scene.getTileheight(),
+									(tileCol * scene.getTilewidth()),
+									(tileRow * scene.getTileheight()),
+									(tileCol * scene.getTilewidth())
+											+ scene.getTilewidth(),
+									(tileRow * scene.getTileheight())
+											+ scene.getTileheight(), null);
 				}
 			}
 			a++;
@@ -109,60 +111,58 @@ public class Renderer implements Render {
 	public void render() {
 		draws.drawImage(layers[0], 0, 0, null);
 		draws.drawImage(layers[1], 0, 0, null);
-		draws
-				.drawImage(ImageManager.getInstance().getImage(p.getImage()),
-						(int) (p.getPos().x), (int) (p.getPos().y), (int) (p
-								.getPos().x + p.getPos().width), (int) (p
-								.getPos().y + p.getPos().height), (int) ((p
-								.getAnimates() % 6) * p.getPos().width),
-						(int) (p.getDirection() * p.getPos().height),
-						(int) (((p.getAnimates() % 6) * p.getPos().width) + p
-								.getPos().width), (int) ((p.getDirection() * p
-								.getPos().height) + p.getPos().height), null);
-		for (Monster monstro : monsters) {
-			draws
-					.drawImage(
-							ImageManager.getInstance().getImage(
-									monstro.getImage()),
-							(int) (monstro.getPos().x),
-							(int) (monstro.getPos().y),
-							(int) (monstro.getPos().x + monstro.getPos().width),
-							(int) (monstro.getPos().y + monstro.getPos().height),
-							(int) ((monstro.getAnimates() % 4) * monstro
-									.getPos().width),
-							(int) (monstro.getDirection() * monstro.getPos().height),
-							(int) (((monstro.getAnimates() % 4) * monstro
-									.getPos().width) + monstro.getPos().width),
-							(int) ((monstro.getDirection() * monstro.getPos().height) + monstro
-									.getPos().height), null);
+		draws.drawImage(
+				ImageManager.getInstance().getImage(player.getImage()),
+				(int) (player.getPos().x),
+				(int) (player.getPos().y),
+				(int) (player.getPos().x + player.getPos().width),
+				(int) (player.getPos().y + player.getPos().height),
+				(int) ((player.getAnimates() % 6) * player.getPos().width),
+				(int) (player.getDirection() * player.getPos().height),
+				(int) (((player.getAnimates() % 6) * player.getPos().width) + player
+						.getPos().width),
+				(int) ((player.getDirection() * player.getPos().height) + player
+						.getPos().height), null);
+		for (Monster monster : monsters) {
+			draws.drawImage(
+					ImageManager.getInstance().getImage(monster.getImage()),
+					(int) (monster.getPos().x),
+					(int) (monster.getPos().y),
+					(int) (monster.getPos().x + monster.getPos().width),
+					(int) (monster.getPos().y + monster.getPos().height),
+					(int) ((monster.getAnimates() % 4) * monster.getPos().width),
+					(int) (monster.getDirection() * monster.getPos().height),
+					(int) (((monster.getAnimates() % 4) * monster.getPos().width) + monster
+							.getPos().width),
+					(int) ((monster.getDirection() * monster.getPos().height) + monster
+							.getPos().height), null);
 		}
-		draws
-				.drawImage(ImageManager.getInstance().getImage(p.getImage()),
-						(int) (p.getPos().x), (int) (p.getPos().y), (int) (p
-								.getPos().x + p.getPos().width), (int) (p
-								.getPos().y + p.getPos().height / 2), (int) ((p
-								.getAnimates() % 6) * p.getPos().width),
-						(int) (p.getDirection() * p.getPos().height),
-						(int) (((p.getAnimates() % 6) * p.getPos().width) + p
-								.getPos().width), (int) ((p.getDirection() * p
-								.getPos().height) + p.getPos().height / 2),
-						null);
+		draws.drawImage(
+				ImageManager.getInstance().getImage(player.getImage()),
+				(int) (player.getPos().x),
+				(int) (player.getPos().y),
+				(int) (player.getPos().x + player.getPos().width),
+				(int) (player.getPos().y + player.getPos().height / 2),
+				(int) ((player.getAnimates() % 6) * player.getPos().width),
+				(int) (player.getDirection() * player.getPos().height),
+				(int) (((player.getAnimates() % 6) * player.getPos().width) + player
+						.getPos().width),
+				(int) ((player.getDirection() * player.getPos().height) + player
+						.getPos().height / 2), null);
 		for (Animation animation : animations) {
-			draws
-					.drawImage(
-							ImageManager.getInstance().getImage(
-									animation.getImage()),
-							(int) (animation.getPos().x),
-							(int) (animation.getPos().y),
-							(int) (animation.getPos().x + animation.getPos().width),
-							(int) (animation.getPos().y + animation.getPos().height),
-							(int) ((animation.getCurrentImageIndex() % animation
-									.getImageSize()) * animation.getPos().width),
-							0,
-							(int) (((animation.getCurrentImageIndex() % animation
-									.getImageSize()) * animation.getPos().width) + animation
-									.getPos().width),
-							(int) animation.getPos().height, null);
+			draws.drawImage(
+					ImageManager.getInstance().getImage(animation.getImage()),
+					(int) (animation.getPos().x),
+					(int) (animation.getPos().y),
+					(int) (animation.getPos().x + animation.getPos().width),
+					(int) (animation.getPos().y + animation.getPos().height),
+					(int) ((animation.getCurrentImageIndex() % animation
+							.getImageSize()) * animation.getPos().width),
+					0,
+					(int) (((animation.getCurrentImageIndex() % animation
+							.getImageSize()) * animation.getPos().width) + animation
+							.getPos().width), (int) animation.getPos().height,
+					null);
 		}
 		draws.drawImage(layers[2], 0, 0, null);
 	}
